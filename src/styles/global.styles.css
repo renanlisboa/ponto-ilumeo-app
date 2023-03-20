@@ -1,0 +1,33 @@
+:root {
+  --font-sans: 'Montserrat', sans-serif;
+
+  --full-width: 100vw;
+  --max-width-lg: 1180px;
+  --max-width-md: 844px;
+  --max-width-sm: 724px;
+  --max-width-xs: 320px;
+  --border-radius: 4px;
+
+  --primary-color: linear-gradient(124.18deg, #FE8A00 22.06%, #FE8A00 81.62%);
+
+  --text-color: #FFFFFF;
+  --background-color: #151F2B;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+  background: var(--background-color);
+  max-width: var(--full-width);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: antialiased;
+}
