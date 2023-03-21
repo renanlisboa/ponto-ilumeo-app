@@ -17,7 +17,10 @@ Esse case/teste faz parte do processo de recrutamento da empresa Ilumeo.
 
 - [Node.js v16](https://nodejs.org/en/)
 
+
 ## Instalação
+
+OBS! RENOMEAR ARQUIVO .env.local.example PARA .env.local E INSERIR URL DA API EM 'API_URL'
 
 ```bash
 $ npm install
