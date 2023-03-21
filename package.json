@@ -1,7 +1,9 @@
 {
   "name": "ponto-ilumeo-app",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "repository": "git@github.com:renanlisboa/ponto-ilumeo-app.git",
+  "author": "renanlisboa <renlp89.developer@gmail.com>",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
