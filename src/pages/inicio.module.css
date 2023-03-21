@@ -1,4 +1,5 @@
 .container {
+  margin: 0 auto;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -18,7 +19,7 @@
   color: #CFCFCF;
 }
 
-.logomarca-bold {
+.logomarcaBold {
   font-weight: 800
 }
 
@@ -28,7 +29,7 @@
   gap: 24px;
 }
 
-.label {
+.inputLabel {
   font-weight: 300;
   font-size: 12px;
   line-height: 12px;
@@ -38,11 +39,11 @@
   top: 10px;
 }
 
-.input-wrapper {
+.inputWrapper {
   background: #1E2733;
   position: relative;
   padding-top: 14px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 }
 
 .input {
@@ -53,16 +54,8 @@
   border-bottom: 2px solid var(--background-color);
   padding: 16px;
   font-weight: 600;
-  font-size: 21.6px;
+  font-size: 18px;
   color: var(--text-color);
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active{
-  -webkit-box-shadow: 0 0 0 30px #1E2733 inset !important;
-  -webkit-text-fill-color: #fff !important;
 }
 
 .input:focus {
@@ -70,14 +63,22 @@ input:-webkit-autofill:active{
   border-bottom: 2px solid #fff;
 }
 
-.submit-button {
+.submitButton {
   width: 365px;
   height: 47px;
+  color: var(--text-color-dark);
   background: var(--primary-color);
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   border: none;
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
   cursor: pointer;
+}
+
+
+@media (max-width: 425px) {
+  .input .submitButton {
+    width: 280;
+  }
 }

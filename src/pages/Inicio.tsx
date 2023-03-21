@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../contexts';
 import { HttpClientHelper } from '../helpers';
 
-import '../styles/inicio.styles.css';
+import styles from './inicio.module.css';
 
 const httpClientHelper = new HttpClientHelper();
 
 export function Incio() {
+  const [loading, setLoading] = useState(false);
   const [codigoColaborador, setCodigoColaborador] = useState('');
-  const { setStore } = useAppContext();
+  const { saveToStore } = useAppContext();
   const navigate = useNavigate();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -22,28 +23,29 @@ export function Incio() {
     const body = {
       codigoColaborador,
     };
+    setLoading(true);
     const response = await httpClientHelper.post('/acessar-pontos', body);
+    setLoading(false);
     if (!response) return;
-    setStore(previousState => ({
-      ...previousState,
-      ...response,
-    }));
+    saveToStore({
+      colaborador: response.colaborador,
+    });
     navigate('/pontos');
   };
 
   return (
-    <div className="container">
-      <div className="card">
-        <h2 className="logomarca">
-          Ponto <span className="logomarca-bold">Ilumeo</span>
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <h2 className={styles.logomarca}>
+          Ponto <span className={styles.logomarcaBold}>Ilumeo</span>
         </h2>
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="input-wrapper">
-            <label className="label" htmlFor="codigo-usuario">
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.inputWrapper}>
+            <label className={styles.inputLabel} htmlFor="codigo-usuario">
               Código do usuário
             </label>
             <input
-              className="input"
+              className={styles.input}
               type="text"
               id="codigo-usuario"
               placeholder="Digitar código"
@@ -51,8 +53,8 @@ export function Incio() {
               value={codigoColaborador}
             />
           </div>
-          <button className="submit-button" type="submit">
-            Confirmar
+          <button className={styles.submitButton} type="submit">
+            {loading ? 'Carregando...' : 'Confirmar'}
           </button>
         </form>
       </div>

@@ -1,16 +1,11 @@
 :root {
   --font-sans: 'Montserrat', sans-serif;
-
   --full-width: 100vw;
-  --max-width-lg: 1180px;
-  --max-width-md: 844px;
-  --max-width-sm: 724px;
-  --max-width-xs: 320px;
   --border-radius: 4px;
 
   --primary-color: linear-gradient(124.18deg, #FE8A00 22.06%, #FE8A00 81.62%);
-
   --text-color: #FFFFFF;
+  --text-color-dark: #1E2733;
   --background-color: #151F2B;
 }
 
@@ -30,4 +25,12 @@ body {
   font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: antialiased;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+  -webkit-box-shadow: 0 0 0 30px #1E2733 inset !important;
+  -webkit-text-fill-color: #fff !important;
 }

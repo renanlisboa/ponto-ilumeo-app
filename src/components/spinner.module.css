@@ -1,0 +1,11 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+.spinner {
+  color: var(--text-color);
+}
