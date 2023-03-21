@@ -55,8 +55,6 @@ export function Ponto() {
   const dateHelper = new DateHelper();
   const alertHelper = new AlertHelper();
 
-  console.log('passei aqui');
-
   useEffect(() => {
     if (!store.colaborador) return;
     buscarPontoEntrada();
