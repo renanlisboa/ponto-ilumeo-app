@@ -29,6 +29,8 @@ $ npm install
 ## Execução
 
 ```bash
+ATENÇÃO! RENOMEAR ARQUIVO .env.local.example PARA .env.local E INSERIR URL DA API EM 'VITE_API_URL'
+
 $ npm run dev
 ```
 
