@@ -38,6 +38,10 @@ export function Table({
     <div className={styles.tableContainer}>
       <h2 className={styles.tableTitle}>Dias anteriores</h2>
       <div className={styles.table}>
+        <div className={styles.tableHead}>
+          <span className={styles.tableRowText}>Data de entrada</span>
+          <span className={styles.tableRowText}>Tempo</span>
+        </div>
         {loading ? (
           <Spinner />
         ) : (

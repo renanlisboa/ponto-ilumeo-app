@@ -41,10 +41,10 @@ export function AppProvider({ children }: AppProviderProps) {
   }, []);
 
   const saveToStore = (data: any) => {
-    if (data.colaborador || data.ponto) {
+    if (data.colaborador) {
       const userData = {
         ...store,
-        colaborador: store.colaborador ? store.colaborador : data.colaborador,
+        colaborador: data.colaborador,
       };
       storageHelper.setLocal('ilumeoponto.userdata', JSON.stringify(userData));
     }

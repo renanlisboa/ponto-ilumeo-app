@@ -7,18 +7,19 @@ export class DateHelper {
   }
 
   formatHour(datetime: number) {
+    const dayDifference = Math.floor(datetime / 86400000);
     const hourDifference = Math.floor((datetime % 86400000) / 3600000);
     const minuteDifference = Math.round(
       ((datetime % 86400000) % 3600000) / 60000,
     );
-    let hours = hourDifference;
+    let hours = dayDifference > 0 ? hourDifference + 24 : dayDifference;
     const minutes =
       minuteDifference < 10
         ? `0${minuteDifference}`
         : minuteDifference == 60
         ? hours++
         : minuteDifference;
-    return `${hourDifference}h ${minutes}m`;
+    return `${hours}h ${minutes}m`;
   }
 
   getTimeDifferenceBetweenDates(laterDate: Date, earlierDate: Date) {

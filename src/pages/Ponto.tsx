@@ -39,7 +39,7 @@ type ListarPontosResponseType = {
 export function Ponto() {
   const [loading, setLoading] = useState(false);
   const [tempoTrabalhado, setTempoTrabalhado] = useState('0h 00m');
-  const [ponto, setPonto] = useState<Registro | undefined>();
+  const [ponto, setPonto] = useState<Registro | null>(null);
   const [pontos, setPontos] = useState<PontoType[]>([]);
   const [totalPontos, setTotalPontos] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -129,6 +129,7 @@ export function Ponto() {
     });
     setLoading(false);
     alertHelper.success('Saída registrada com sucesso');
+    setPonto(null);
     setTempoTrabalhado('0h 00m');
     listarPontos();
   };
@@ -168,16 +169,16 @@ export function Ponto() {
           <strong className={styles.tempo}>{tempoTrabalhado}</strong>
           <small className={styles.tempoDescricao}>Horas de hoje</small>
         </div>
-        {ponto?.dataEntrada ? (
+        {ponto ? (
           <button className={styles.pontoButton} onClick={handleRegistrarSaida}>
-            Registrar saída
+            {loading ? 'Registrando' : 'Registrar saída'}
           </button>
         ) : (
           <button
             className={styles.pontoButton}
             onClick={handleRegistrarEntrada}
           >
-            Registrar entrada
+            {loading ? 'Registrando' : 'Registrar entrada'}
           </button>
         )}
         <Table
