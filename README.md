@@ -24,6 +24,12 @@ Esse case/teste faz parte do processo de recrutamento da empresa Ilumeo.
 $ npm install
 ```
 
+## Test
+
+```bash
+$ npm test
+```
+
 ## Execução
 
 ```bash
