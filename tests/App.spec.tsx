@@ -1,7 +1,7 @@
 import React from 'react';
-import { describe, it, vi, expect, beforeAll } from 'vitest';
-import userEvent from '@testing-library/user-event';
+import { describe, it, expect } from 'vitest';
 import { render, fireEvent, act, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import App from '../src/App';
 
