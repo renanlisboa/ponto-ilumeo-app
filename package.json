@@ -1,6 +1,6 @@
 {
   "name": "ponto-ilumeo-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "git@github.com:renanlisboa/ponto-ilumeo-app.git",
   "author": "renanlisboa <renlp89.developer@gmail.com>",
   "license": "MIT",
@@ -14,7 +14,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
-    "react-toastify": "^9.1.1"
+    "react-toastify": "^9.1.1",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

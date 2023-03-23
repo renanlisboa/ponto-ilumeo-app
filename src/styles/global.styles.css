@@ -27,10 +27,15 @@ body {
   -moz-osx-font-smoothing: antialiased;
 }
 
+a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
   -webkit-box-shadow: 0 0 0 30px #1E2733 inset !important;
-  -webkit-text-fill-color: #fff !important;
+  -webkit-text-fill-color: #FFFFFF !important;
 }

@@ -63,6 +63,18 @@
   border-bottom: 2px solid #fff;
 }
 
+.inputError {
+  width: 365px;
+  height: 60px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid red;
+  padding: 16px;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
 .submitButton {
   width: 365px;
   height: 47px;
