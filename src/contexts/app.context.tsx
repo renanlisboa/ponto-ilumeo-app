@@ -22,6 +22,7 @@ type Store = {
 type AppContextDataTypes = {
   store: Store;
   saveToStore: (item: any) => void;
+  removeUserData: () => void;
 };
 
 const AppContext = createContext({} as AppContextDataTypes);
@@ -54,8 +55,19 @@ export function AppProvider({ children }: AppProviderProps) {
     }));
   };
 
+  const removeUserData = () => {
+    storageHelper.removeLocal('ilumeoponto.userdata');
+    setStore({});
+  };
+
   return (
-    <AppContext.Provider value={{ store, saveToStore }}>
+    <AppContext.Provider
+      value={{
+        store,
+        saveToStore,
+        removeUserData,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

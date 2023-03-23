@@ -18,12 +18,7 @@ export class HttpClientHelper {
         method: 'GET',
       },
     );
-    if (response.status == 500) {
-      this.alertHelper.error(
-        'Erro ao buscar dados. Tente novamente mais tarde',
-      );
-      return null;
-    }
+    if (response.status == 404 || response.status == 500) return null;
     return await response.json();
   }
 
@@ -36,9 +31,6 @@ export class HttpClientHelper {
       body: JSON.stringify(body),
     });
     if (response.status == 400 || response.status == 500) {
-      this.alertHelper.error(
-        'Erro ao cadastrar. Verifique os dados e tente novamente',
-      );
       return null;
     }
     return await response.json();
@@ -60,9 +52,6 @@ export class HttpClientHelper {
       response.status == 404 ||
       response.status == 500
     ) {
-      this.alertHelper.error(
-        'Erro ao atualizar. Verifique os dados e tente novamente',
-      );
       return null;
     }
     return await response.json();

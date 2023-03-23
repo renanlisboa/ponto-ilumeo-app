@@ -1,8 +1,9 @@
-import { FormEvent, ChangeEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppContext } from '../contexts';
-import { HttpClientHelper } from '../helpers';
+import { HttpClientHelper, AlertHelper } from '../helpers';
+import { AcessarPontosValidator } from '../validators';
 
 import styles from './inicio.module.css';
 
@@ -10,27 +11,38 @@ const httpClientHelper = new HttpClientHelper();
 
 export function Incio() {
   const [loading, setLoading] = useState(false);
-  const [codigoColaborador, setCodigoColaborador] = useState('');
+  const [error, setError] = useState(false);
   const { saveToStore } = useAppContext();
   const navigate = useNavigate();
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCodigoColaborador(event.target.value);
-  };
+  const acessarPontosValidator = new AcessarPontosValidator();
+  const alertHelper = new AlertHelper();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const body = {
-      codigoColaborador,
-    };
-    setLoading(true);
-    const response = await httpClientHelper.post('/acessar-pontos', body);
-    setLoading(false);
-    if (!response) return;
-    saveToStore({
-      colaborador: response.colaborador,
-    });
-    navigate('/pontos');
+    const formData = new FormData(event.target as HTMLFormElement);
+    const formEntries = Object.fromEntries(formData.entries());
+    try {
+      const dadosValidados = acessarPontosValidator.validate(formEntries);
+      setLoading(true);
+      const response = await httpClientHelper.post(
+        '/acessar-pontos',
+        dadosValidados,
+      );
+      setLoading(false);
+      if (!response)
+        throw new Error(
+          'Erro ao acessar ponto. Verifique seus dados e tente novamente',
+        );
+      saveToStore({
+        colaborador: response.colaborador,
+      });
+      navigate('/pontos');
+    } catch (error: any) {
+      setError(true);
+      if (error.name == 'ZodError') {
+        alertHelper.error('Código deve ter entre 1 e 20 caracteres');
+      }
+    }
   };
 
   return (
@@ -45,12 +57,14 @@ export function Incio() {
               Código do usuário
             </label>
             <input
-              className={styles.input}
+              className={error ? styles.inputError : styles.input}
               type="text"
               id="codigo-usuario"
+              name="codigoColaborador"
               placeholder="Digitar código"
-              onChange={handleInputChange}
-              value={codigoColaborador}
+              onChange={() => {
+                setError(false);
+              }}
             />
           </div>
           <button className={styles.submitButton} type="submit">

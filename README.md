@@ -20,8 +20,6 @@ Esse case/teste faz parte do processo de recrutamento da empresa Ilumeo.
 
 ## Instalação
 
-ATENÇÃO! RENOMEAR ARQUIVO .env.local.example PARA .env.local E INSERIR URL DA API EM 'VITE_API_URL'
-
 ```bash
 $ npm install
 ```
