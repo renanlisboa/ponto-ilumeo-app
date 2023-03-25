@@ -24,7 +24,9 @@ export const Table = memo(function Table({
 }: TableProps) {
   return (
     <div className={styles.table}>
-      <h2 className={styles.tableTitle}>Registros anteriores</h2>
+      <div className={styles.tableToolbar}>
+        <h2 className={styles.tableTitle}>Registros anteriores</h2>
+      </div>
       <div className={styles.tableBody}>
         <div className={styles.tableHead}>
           <span className={styles.tableRowText}>Data de entrada</span>
