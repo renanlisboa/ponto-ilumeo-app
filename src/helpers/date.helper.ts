@@ -12,15 +12,18 @@ export class DateHelper {
     const minuteDifference = Math.round(
       ((datetime % 86400000) % 3600000) / 60000,
     );
-    let hours = dayDifference > 0 
-        ? hourDifference + 24 
-        : hourDifference < 0 
-        ? 0 : hourDifference;
+    let hours =
+      dayDifference > 0
+        ? hourDifference + 24
+        : hourDifference < 0
+        ? 0
+        : hourDifference;
+    if (minuteDifference == 60) hours++;
     const minutes =
       minuteDifference < 10
         ? `0${minuteDifference}`
         : minuteDifference == 60
-        ? hours++
+        ? '00'
         : minuteDifference;
     return `${hours}h ${minutes}m`;
   }

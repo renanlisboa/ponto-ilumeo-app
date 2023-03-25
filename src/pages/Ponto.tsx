@@ -20,7 +20,10 @@ type Registro = {
   idColaborador: string;
 };
 
+let pontoAberto = false;
+
 export function Ponto() {
+  const [eventSource, setEventSource] = useState<EventSource | null>(null);
   const [loading, setLoading] = useState(false);
   const [registrarPontoLoading, setRegistrarPontoLoading] = useState(false);
   const [tempoTrabalhado, setTempoTrabalhado] = useState('0h 00m');
@@ -38,11 +41,51 @@ export function Ponto() {
     listarPontos();
   }, []);
 
+  function atualizarTempo() {
+    if (!eventSource) return;
+    eventSource.onmessage = function (event) {
+      if (!pontoAberto) {
+        setTempoTrabalhado('0h 00m');
+        setPonto(null);
+        eventSource.close();
+        setEventSource(null);
+      } else {
+        const data = JSON.parse(event.data);
+        setPonto(data);
+        const dataAtual = new Date();
+        const dataEntrada = new Date(data.dataEntrada);
+        const diferencaEntreDatas = dateHelper.getTimeDifferenceBetweenDates(
+          dataAtual,
+          dataEntrada,
+        );
+        const tempoTrabalhadoFormatado =
+          dateHelper.formatHour(diferencaEntreDatas);
+        setTempoTrabalhado(tempoTrabalhadoFormatado);
+      }
+    };
+    eventSource.onerror = function (error) {
+      console.error(error);
+      eventSource.close();
+    };
+  }
+
+  atualizarTempo();
+
   const buscarPontoEntrada = async () => {
     const data = await httpClientHelper.get('/buscar-ponto', {
       idColaborador: store.colaborador?.id,
     });
     if (!data) return;
+    pontoAberto = true;
+    if (!eventSource) {
+      setEventSource(
+        new EventSource(
+          `${import.meta.env.VITE_API_URL}/stream?idColaborador=${
+            store.colaborador?.id
+          }`,
+        ),
+      );
+    }
     setPonto(data);
     const dataAtual = new Date();
     const dataEntrada = new Date(data.dataEntrada);
@@ -111,6 +154,16 @@ export function Ponto() {
     setPonto(null);
     setTempoTrabalhado('0h 00m');
     listarPontos();
+    if (eventSource) eventSource.close();
+    setEventSource(null);
+    pontoAberto = false;
+  };
+
+  const handleSair = () => {
+    if (eventSource) eventSource.close();
+    setEventSource(null);
+    removeUserData();
+    pontoAberto = false;
   };
 
   return (
@@ -128,7 +181,7 @@ export function Ponto() {
             <strong className={styles.tempo}>{tempoTrabalhado}</strong>
             <small className={styles.tempoDescricao}>Horas de hoje</small>
           </div>
-          <Link onClick={removeUserData} to="/">
+          <Link onClick={handleSair} to="/">
             Sair
           </Link>
         </div>
